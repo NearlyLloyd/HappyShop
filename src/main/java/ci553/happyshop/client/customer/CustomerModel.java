@@ -1,12 +1,5 @@
 package ci553.happyshop.client.customer;
 
-import ci553.happyshop.catalogue.Order;
-import ci553.happyshop.catalogue.Product;
-import ci553.happyshop.storageAccess.DatabaseRW;
-import ci553.happyshop.orderManagement.OrderHub;
-import ci553.happyshop.utility.StorageLocation;
-import ci553.happyshop.utility.ProductListFormatter;
-
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -14,6 +7,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import ci553.happyshop.catalogue.Order;
+import ci553.happyshop.catalogue.Product;
+import ci553.happyshop.orderManagement.OrderHub;
+import ci553.happyshop.storageAccess.DatabaseRW;
+import ci553.happyshop.utility.ProductListFormatter;
+import ci553.happyshop.utility.StorageLocation;
 
 /**
  * TODO
@@ -64,13 +64,31 @@ public class CustomerModel {
 
     void addToTrolley(){
         if(theProduct!= null){
+            if(trolley.contains(theProduct)){
+               //theProduct.setOrderedQuantity(theProduct.getOrderedQuantity()+1);
+               trolley.get(trolley.indexOf(theProduct)).setOrderedQuantity(trolley.get(trolley.indexOf(theProduct)).getOrderedQuantity()+1
+               );
+            } //if already in trolley, just increase quantity by 1
+            else trolley.add(theProduct); //if not in trolley, add it
 
-            // trolley.add(theProduct) — Product is appended to the end of the trolley.
-            // To keep the trolley organized, add code here or call a method that:
-            //TODO
-            // 1. Merges items with the same product ID (combining their quantities).
-            // 2. Sorts the products in the trolley by product ID.
-            trolley.add(theProduct);
+
+            // boolean found = false;
+            // for(Product p : trolley){
+            //     if(p.getProductId().equals(theProduct.getProductId())){
+            //         p.setOrderedQuantity(p.getOrderedQuantity()+1);
+            //         found = true;
+            //         break;
+            //     }//if product found, increase its ordered quantity by 1
+            // }
+            // if(!found){
+            //     trolley.add(theProduct); //if not in trolley, add it
+            // }
+
+
+            trolley.sort((a,b) -> {return a.compareTo(b);}); //sort by productId
+            System.out.println(groupProductsById(trolley));
+
+
             displayTaTrolley = ProductListFormatter.buildString(trolley); //build a String for trolley so that we can show it
         }
         else{
@@ -121,6 +139,8 @@ public class CustomerModel {
                 // 2. Trigger a message window to notify the customer about the insufficient stock, rather than directly changing displayLaSearchResult.
                 //You can use the provided RemoveProductNotifier class and its showRemovalMsg method for this purpose.
                 //remember close the message window where appropriate (using method closeNotifierWindow() of RemoveProductNotifier class)
+
+
                 displayLaSearchResult = "Checkout failed due to insufficient stock for the following products:\n" + errorMsg.toString();
                 System.out.println("stock is not enough");
             }
