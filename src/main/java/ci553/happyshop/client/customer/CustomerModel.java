@@ -64,25 +64,18 @@ public class CustomerModel {
 
     void addToTrolley(){
         if(theProduct!= null){
-            if(trolley.contains(theProduct)){
-               //theProduct.setOrderedQuantity(theProduct.getOrderedQuantity()+1);
-               trolley.get(trolley.indexOf(theProduct)).setOrderedQuantity(trolley.get(trolley.indexOf(theProduct)).getOrderedQuantity()+1
-               );
-            } //if already in trolley, just increase quantity by 1
-            else trolley.add(theProduct); //if not in trolley, add it
 
-
-            // boolean found = false;
-            // for(Product p : trolley){
-            //     if(p.getProductId().equals(theProduct.getProductId())){
-            //         p.setOrderedQuantity(p.getOrderedQuantity()+1);
-            //         found = true;
-            //         break;
-            //     }//if product found, increase its ordered quantity by 1
-            // }
-            // if(!found){
-            //     trolley.add(theProduct); //if not in trolley, add it
-            // }
+            boolean found = false;
+            for(Product p : trolley){
+                if(p.getProductId().equals(theProduct.getProductId())){
+                    p.setOrderedQuantity(p.getOrderedQuantity()+1);
+                    found = true;
+                    break;
+                }//if product found, increase its ordered quantity by 1
+            }
+            if(!found){
+                trolley.add(theProduct); //if not in trolley, add it
+            }
 
 
             trolley.sort((a,b) -> {return a.compareTo(b);}); //sort by productId
@@ -106,8 +99,8 @@ public class CustomerModel {
             // If any products are insufficient, the update will be rolled back.
             // If all products are sufficient, the database will be updated, and insufficientProducts will be empty.
             // Note: If the trolley is already organized (merged and sorted), grouping is unnecessary.
-            ArrayList<Product> groupedTrolley= groupProductsById(trolley);
-            ArrayList<Product> insufficientProducts= databaseRW.purchaseStocks(groupedTrolley);
+
+            ArrayList<Product> insufficientProducts= databaseRW.purchaseStocks(trolley);
 
             if(insufficientProducts.isEmpty()){ // If stock is sufficient for all products
                 //get OrderHub and tell it to make a new Order
@@ -140,7 +133,16 @@ public class CustomerModel {
                 //You can use the provided RemoveProductNotifier class and its showRemovalMsg method for this purpose.
                 //remember close the message window where appropriate (using method closeNotifierWindow() of RemoveProductNotifier class)
 
+                for(Product p : insufficientProducts){
+                    //trolley.get(trolley.indexOf(p)).setOrderedQuantity(p.getStockQuantity()); //set ordered quantity to max stock available
+                    trolley.remove(trolley.indexOf(p)).setOrderedQuantity(p.getStockQuantity()); //remove the product from trolley if stock is zero
+                }
+                RemoveProductNotifier notifier = new RemoveProductNotifier();
+                notifier.cusView = this.cusView;
+                notifier.showRemovalMsg("The following products have insufficient stock and have been adjusted in your trolley:\n" + errorMsg.toString());
 
+                displayTaTrolley = ProductListFormatter.buildString(trolley); //rebuild trolley string as order quantity may have changed
+                
                 displayLaSearchResult = "Checkout failed due to insufficient stock for the following products:\n" + errorMsg.toString();
                 System.out.println("stock is not enough");
             }
