@@ -1,5 +1,8 @@
 package ci553.happyshop.client.orderTracker;
 
+import java.util.Map;
+import java.util.TreeMap;
+
 import ci553.happyshop.orderManagement.OrderHub;
 import ci553.happyshop.orderManagement.OrderState;
 import ci553.happyshop.utility.UIStyle;
@@ -10,9 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
-import java.util.Map;
-import java.util.TreeMap;
+import javafx.stage.StageStyle;
 
 /**
  * OrderTracker class is for tracking orders and their states.
@@ -45,6 +46,7 @@ public class OrderTracker {
         Stage window = new Stage();
         window.setScene(scene);
         window.setTitle("🛒Order Tracker");
+        window.initStyle(StageStyle.UNDECORATED); //remove window border and title bar
 
         // Registers the window's position with WinPosManager.
         WinPosManager.registerWindow(window,WIDTH,HEIGHT); //calculate position x and y for this window

@@ -126,7 +126,7 @@ public class CustomerModel {
                 }
                 theProduct=null;
 
-                //TODO
+                //TODO - done
                 // Add the following logic here:
                 // 1. Remove products with insufficient stock from the trolley.
                 // 2. Trigger a message window to notify the customer about the insufficient stock, rather than directly changing displayLaSearchResult.

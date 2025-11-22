@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  * The class EmergencyExit used to immediately shut down the entire application.
@@ -48,6 +49,8 @@ public class EmergencyExit {
         Stage window = new Stage();
         window.setScene(scene);
         window.setTitle("🛒 EXIT");
+        window.initStyle(StageStyle.UNDECORATED); //remove window border and title bar
+
         WinPosManager.registerWindow(window,WIDTH,HEIGHT); //calculate position x and y for this window
         window.show();
     }

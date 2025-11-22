@@ -1,12 +1,13 @@
 package ci553.happyshop.client.warehouse;
 
+import java.util.ArrayList;
+
 import ci553.happyshop.utility.UIStyle;
 import ci553.happyshop.utility.WindowBounds;
 import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import java.util.ArrayList;
 
 /**
  * This class provides a simple history window to display a list of events (successfully delete, edit and add a new product).
@@ -48,6 +49,7 @@ public class HistoryWindow {
         window = new Stage();
         window.setScene(scene);
         window.setTitle("\uD83C\uDFEC Warehouse Management History"); // for icon 🏬
+
         window.show();
         //get the bounds of warehouse window which trigers the history window
         //so that we can put the history window next to the warehouse window

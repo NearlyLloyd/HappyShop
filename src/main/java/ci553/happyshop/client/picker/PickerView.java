@@ -1,15 +1,18 @@
 package ci553.happyshop.client.picker;
 
+import java.io.IOException;
+
 import ci553.happyshop.utility.UIStyle;
 import ci553.happyshop.utility.WinPosManager;
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
-import java.io.IOException;
+import javafx.stage.StageStyle;
 
 /**
  * The Order Picker window is for staff to prepare customer's order.
@@ -48,6 +51,8 @@ public class PickerView  {
         scene = new Scene(vbOrderMapRoot, WIDTH, HEIGHT);
         window.setScene(scene);
         window.setTitle("🛒 HappyShop Order Picker");
+        window.initStyle(StageStyle.UNDECORATED); //remove window border and title bar
+
         WinPosManager.registerWindow(window,WIDTH,HEIGHT); //calculate position x and y for this window
         window.show();
 

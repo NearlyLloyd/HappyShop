@@ -1,5 +1,12 @@
 package ci553.happyshop.client.warehouse;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
 import ci553.happyshop.catalogue.Product;
 import ci553.happyshop.utility.StorageLocation;
 import ci553.happyshop.utility.UIStyle;
@@ -8,26 +15,26 @@ import ci553.happyshop.utility.WindowBounds;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import javafx.geometry.Insets;
-import javafx.scene.input.MouseEvent;
+import javafx.stage.StageStyle;
 /**
  * Some emojis used in the UI. If the emoji does not work on your OS,
  * please change them to their unique Unicode codes.
@@ -149,6 +156,8 @@ public class WarehouseView  {
         Scene scene = new Scene(hbRoot, WIDTH, HEIGHT);
         window.setScene(scene);
         window.setTitle("Search_Page  🛒🛒HappyShop_Warehouse🛒🛒  ProductForm_Page(Edit & AddNew Product)");
+        window.initStyle(StageStyle.UNDECORATED); //remove window border and title bar
+
         WinPosManager.registerWindow(window,WIDTH,HEIGHT); // Registers the window with WinPosManager to
         // dynamically position itself based on its size, and any already displayed windows.
         window.show();
