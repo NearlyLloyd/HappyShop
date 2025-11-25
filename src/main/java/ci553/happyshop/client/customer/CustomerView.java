@@ -3,6 +3,7 @@ package ci553.happyshop.client.customer;
 import java.io.IOException;
 import java.sql.SQLException;
 
+import ci553.happyshop.utility.ButtonStyles;
 import ci553.happyshop.utility.UIStyle;
 import ci553.happyshop.utility.WinPosManager;
 import ci553.happyshop.utility.WindowBounds;
@@ -73,6 +74,7 @@ public class CustomerView  {
         hbRoot.setStyle(UIStyle.rootStyle);
 
         Scene scene = new Scene(hbRoot, WIDTH, HEIGHT);
+
         window.setScene(scene);
         window.initStyle(StageStyle.UNDECORATED); //remove window border and title bar
         window.setTitle("🛒 HappyShop Customer Client");
@@ -102,6 +104,7 @@ public class CustomerView  {
         Label laPlaceHolder = new Label(  " ".repeat(15)); //create left-side spacing so that this HBox aligns with others in the layout.
         Button btnSearch = new Button("Search");
         btnSearch.setStyle(UIStyle.buttonStyle);
+        btnSearch.setSkin(new ButtonStyles(btnSearch));
         btnSearch.setOnAction(this::buttonClicked);
         Button btnAddToTrolley = new Button("Add to Trolley");
         btnAddToTrolley.setStyle(UIStyle.buttonStyle);
@@ -144,6 +147,7 @@ public class CustomerView  {
         Button btnCheckout = new Button("Check Out");
         btnCheckout.setOnAction(this::buttonClicked);
         btnCheckout.setStyle(UIStyle.buttonStyle);
+        
 
         HBox hbBtns = new HBox(10, btnCancel,btnCheckout);
         hbBtns.setStyle("-fx-padding: 15px;");

@@ -57,6 +57,7 @@ public record UIStyle() {
 
     public static final String buttonStyle= "-fx-font-size: 15";
 
+
     public static final String rootStyle = "-fx-padding: 8px; " +
             "-fx-background-color: lightgreen";
 
@@ -114,4 +115,6 @@ public record UIStyle() {
     public static final String alertContentUserActionStyle = "-fx-font-size: 14px;" +
             "-fx-font-weight: normal; -fx-text-fill: green;";
 
+
+          
 }
