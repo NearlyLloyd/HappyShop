@@ -108,6 +108,7 @@ public class CustomerView  {
         btnSearch.setOnAction(this::buttonClicked);
         Button btnAddToTrolley = new Button("Add to Trolley");
         btnAddToTrolley.setStyle(UIStyle.buttonStyle);
+        btnAddToTrolley.setSkin(new ButtonStyles(btnAddToTrolley));
         btnAddToTrolley.setOnAction(this::buttonClicked);
         HBox hbBtns = new HBox(10, laPlaceHolder,btnSearch, btnAddToTrolley);
 
@@ -143,10 +144,12 @@ public class CustomerView  {
         Button btnCancel = new Button("Cancel");
         btnCancel.setOnAction(this::buttonClicked);
         btnCancel.setStyle(UIStyle.buttonStyle);
+        btnCancel.setSkin(new ButtonStyles(btnCancel));
+
 
         Button btnCheckout = new Button("Check Out");
         btnCheckout.setOnAction(this::buttonClicked);
-        btnCheckout.setStyle(UIStyle.buttonStyle);
+        btnCheckout.setSkin(new ButtonStyles(btnCheckout));
         
 
         HBox hbBtns = new HBox(10, btnCancel,btnCheckout);
