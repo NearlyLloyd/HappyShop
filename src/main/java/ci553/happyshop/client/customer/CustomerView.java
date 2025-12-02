@@ -12,6 +12,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -44,7 +45,7 @@ public class CustomerView  {
     private VBox vbReceiptPage;
 
     TextField tfId; //for user input on the search page. Made accessible so it can be accessed or modified by CustomerModel
-    TextField tfName; //for user input on the search page. Made accessible so it can be accessed by CustomerModel
+    ComboBox<String> tfName; //for user input on the search page. Made accessible so it can be accessed by CustomerModel
 
     //four controllers needs updating when program going on
     private ImageView ivProduct; //image area in searchPage
@@ -95,9 +96,13 @@ public class CustomerView  {
         HBox hbId = new HBox(10, laId, tfId);
 
         Label laName = new Label("Name:");
+        
         laName.setStyle(UIStyle.labelStyle);
-        tfName = new TextField();
-        tfName.setPromptText("implement it if you want");
+        //tfName = new TextField();
+        tfName = new ComboBox();
+        tfName.setPromptText("Enter Name");
+        tfName.setEditable(true);
+        //tfName.setPromptText("implement it if you want");
         tfName.setStyle(UIStyle.textFiledStyle);
         HBox hbName = new HBox(10, laName, tfName);
 

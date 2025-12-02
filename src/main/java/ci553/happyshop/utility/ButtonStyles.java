@@ -13,6 +13,12 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.util.Duration;
 
+/*
+As some of the buttons were quite boring, made the program feel quite barebones,
+I made buttonStyles to incorporate button animations. Parts of UI style that are overridden by this
+are kept as a backup in case the animation fails
+*/
+
 
 public class ButtonStyles extends ButtonSkin {
     public ButtonStyles(Button control) {

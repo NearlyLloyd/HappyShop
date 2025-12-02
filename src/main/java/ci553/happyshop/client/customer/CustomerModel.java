@@ -14,6 +14,9 @@ import ci553.happyshop.orderManagement.OrderHub;
 import ci553.happyshop.storageAccess.DatabaseRW;
 import ci553.happyshop.utility.ProductListFormatter;
 import ci553.happyshop.utility.StorageLocation;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.ListView;
 
 /**
  * TODO
@@ -26,6 +29,7 @@ public class CustomerModel {
                                   //Benefits: Flexibility: Easily change the database implementation.
 
     private Product theProduct =null; // product found from search
+    private ArrayList<Product> theProducts = null; //products found from search
     private ArrayList<Product> trolley =  new ArrayList<>(); // a list of products in trolley
 
     // Four UI elements to be passed to CustomerView for display updates.
@@ -37,6 +41,7 @@ public class CustomerModel {
     //SELECT productID, description, image, unitPrice,inStock quantity
     void search() throws SQLException {
         String productId = cusView.tfId.getText().trim();
+        String productString = cusView.tfName.getValue();
         if(!productId.isEmpty()){
             theProduct = databaseRW.searchByProductId(productId); //search database
             if(theProduct != null && theProduct.getStockQuantity()>0){
@@ -53,11 +58,50 @@ public class CustomerModel {
                 theProduct=null;
                 displayLaSearchResult = "No Product was found with ID " + productId;
                 System.out.println("No Product was found with ID " + productId);
+
             }
-        }else{
+        }
+        else if(!productString.isEmpty()){ //added support for searching by product Name
+            //get an array of the search results of the products and parse into dropdown
+            //then gives you options to pick from based on search results
+            //pick the most relevant and search again, then add to cart
+
+            //TODO: Make box sizing work
+            theProducts = databaseRW.searchProduct(productString);
+            if(theProducts != null){
+                ObservableList<String> list = FXCollections.observableArrayList();
+                cusView.tfName.show();;
+
+                for(int i = 0;i<theProducts.size();i++){
+                    list.add(theProducts.get(i).getProductDescription());
+                }
+                cusView.tfName.setItems(list);
+
+                theProduct = theProducts.get(0);
+                double unitPrice = theProduct.getUnitPrice();
+                String description = theProduct.getProductDescription();
+                int stock = theProduct.getStockQuantity();
+
+                String baseInfo = String.format("Product_Id: %s\n%s,\nPrice: £%.2f", productId, description, unitPrice);
+                String quantityInfo = stock < 100 ? String.format("\n%d units left.", stock) : "";
+                displayLaSearchResult = baseInfo + quantityInfo;
+                System.out.println(displayLaSearchResult);
+
+            }
+            else{
+                theProducts=null;
+                displayLaSearchResult = "No Products was found with Product Name " + productId;
+                System.out.println("No Products was found with Product Name " + productId);
+
+            }
+
+
+        }
+        else{
             theProduct=null;
             displayLaSearchResult = "Please type ProductID";
             System.out.println("Please type ProductID.");
+            
         }
         updateView();
     }
